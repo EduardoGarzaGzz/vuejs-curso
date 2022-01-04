@@ -1,12 +1,29 @@
-import ListPage                               from "@/modules/pokemon/pages/ListPage";
-import AboutPage                              from "@/modules/pokemon/pages/AboutPage";
-import PokemonPage                            from "@/modules/pokemon/pages/PokemonPage";
 import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
-	{ path: '/', component: ListPage },
-	{ path: '/about', component: AboutPage },
-	{ path: '/id', component: PokemonPage },
+	{
+		path     : '/',
+		name     : 'home',
+		component: () => import( /* webpackChunkName: "ListPage"  */ '@/modules/pokemon/pages/ListPage')
+	},
+	{
+		path     : '/about',
+		name     : 'about',
+		component: () => import( /* webpackChunkName: "AboutPage"  */ '@/modules/pokemon/pages/AboutPage')
+	},
+	{
+		path     : '/pokemon/:id',
+		name     : 'pokemon-id',
+		component: () => import( /* webpackChunkName: "PokemonPage"  */ '@/modules/pokemon/pages/PokemonPage'),
+		props    : ( route ) => {
+			const id = Number( route.params.id );
+			return isNaN( id ) ? { id: 1 } : { id };
+		}
+	},
+	{
+		path     : '/:pathMatch(.*)*',
+		component: () => import( /* webpackChunkName: "NoPageFound"  */ '@/modules/shared/pages/NoPageFound')
+	},
 ];
 
 const router = createRouter( {
