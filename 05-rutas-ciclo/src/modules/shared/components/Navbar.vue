@@ -12,10 +12,12 @@ export default {
   data() {
     return {
       links: [
-        { to: '/', name: 'home' },
-        { to: '/pokemon/50', name: 'Pokemon 50' },
-        { to: '/about', name: 'About' },
+        { to: 'home', name: 'Home' },
+        { to: 'about', name: 'About' },
+        { to: 'pokemon-id', name: 'Pokemon 50', id: 50 },
         { to: 'https://google.com', name: 'Google' },
+        { to: 'dbz-characters', name: 'Dbz Characters' },
+        { to: 'dbz-about', name: 'Dbz About' },
       ]
     }
   },

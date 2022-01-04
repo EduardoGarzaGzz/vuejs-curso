@@ -1,0 +1,20 @@
+[
+  {
+    "name": "contact",
+    "path": "/contact",
+    "component": "C:\\\\MyProjects\\\\vuejs-curso\\\\nuxt-resetario\\\\pages\\\\contact.vue",
+    "chunkName": "pages/contact"
+  },
+  {
+    "name": "users",
+    "path": "/users",
+    "component": "C:\\\\MyProjects\\\\vuejs-curso\\\\nuxt-resetario\\\\pages\\\\users\\\\index.vue",
+    "chunkName": "pages/users/index"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\MyProjects\\\\vuejs-curso\\\\nuxt-resetario\\\\pages\\\\index.vue",
+    "chunkName": "pages/index"
+  }
+]
