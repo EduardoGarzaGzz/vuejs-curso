@@ -1,30 +1,111 @@
 <template>
-	<div class="entry-title d-flex justify-content-between p-2">
-		<div>
-			<span class="text-success fs-5 fw-bold">15</span>
-			<span class="mx-1 fs-5">Julio</span>
-			<span class="mx-2 fw-light">2021 jueves</span>
+	<template v-if="entry">
+		<div class="entry-title d-flex justify-content-between p-2">
+			<div>
+				<span class="text-success fs-5 fw-bold">{{ day }}</span>
+				<span class="mx-1 fs-5">{{ month }}</span>
+				<span class="mx-2 fw-light">{{ yearDay }}</span>
+			</div>
+			<div>
+				<button v-if="entry.id"
+								class="btn btn-danger mx-2"
+								@click="onDeleteEntry">Borrar <em class="fa fa-trash-alt"></em></button>
+				<button class="btn btn-primary mx-2">Subir foto <em class="fa fa-upload"></em></button>
+			</div>
 		</div>
-		<div>
-			<button class="btn btn-danger mx-2">Borrar <em class="fa fa-trash-alt"></em></button>
-			<button class="btn btn-primary mx-2">Subir foto <em class="fa fa-upload"></em></button>
+		<hr>
+		<div class="d-flex flex-column px-3 h-75">
+			<textarea v-model="entry.text" placeholder="Que sucedió hoy?"></textarea>
 		</div>
-	</div>
-	<hr>
-	<div class="d-flex flex-column px-3 h-75">
-		<textarea placeholder="Que sucedió hoy?"></textarea>
-	</div>
-	<Fab icon="fa-sav" />
-	<img alt="entry-picture" class="img-thumbnail" src="http://qnimate.com/wp-content/uploads/2014/03/images2.jpg">
+		<img alt="entry-picture" class="img-thumbnail" src="http://qnimate.com/wp-content/uploads/2014/03/images2.jpg">
+	</template>
+	<Fab icon="fa-save" @on:click="saveEntry" />
 </template>
 
-<script lang="ts">
-import { defineAsyncComponent } from 'vue';
+<script lang="js">
+import { defineAsyncComponent }   from 'vue';
+import { mapActions, mapGetters } from "vuex";
+import getDayMonthYear            from "@/modules/daybook/helpers/getDayMonthYear.ts";
 
 export default {
 	name      : 'EntryView',
+	props     : {
+		id: {
+			type    : String,
+			required: true
+		}
+	},
 	components: {
 		Fab: defineAsyncComponent( () => import('@/modules/daybook/components/Fab.vue') )
+	},
+	data() {
+		return {
+			entry: {
+				text: ''
+			}
+		}
+	},
+	computed: {
+		...mapGetters( 'journal', {
+			getEntriesById: 'getEntriesById'
+		} ),
+		day() {
+			const { day } = getDayMonthYear( this.entry.date );
+			return day;
+		},
+		month() {
+			const { month } = getDayMonthYear( this.entry.date );
+			return month;
+		},
+		yearDay() {
+			const { yearDay } = getDayMonthYear( this.entry.date );
+			return yearDay;
+		}
+	},
+	methods : {
+		...mapActions( 'journal', {
+			updateEntry: "updateEntry",
+			createEntry: "createEntry",
+			deleteEntry: "deleteEntry"
+		} ),
+		loadEntry() {
+			let entry = null;
+			if ( this.id === 'new' ) {
+				this.entry = {
+					text: '',
+					date: new Date().getTime()
+				};
+			} else {
+				entry = this.getEntriesById( this.id );
+				
+				if ( !entry ) {
+					this.$router.push( { name: 'no-entry' } );
+					return;
+				}
+				
+				this.entry = entry;
+			}
+		},
+		async saveEntry() {
+			if ( this.entry.id ) {
+				await this.updateEntry( this.entry );
+			} else {
+				const id = await this.createEntry( this.entry );
+				await this.$router.push( { name: 'entry', params: { id } } );
+			}
+		},
+		async onDeleteEntry() {
+			await this.deleteEntry( this.entry );
+			await this.$router.push( { name: 'no-entry' } );
+		}
+	},
+	created() {
+		this.loadEntry();
+	},
+	watch: {
+		id() {
+			this.loadEntry();
+		}
 	}
 };
 </script>

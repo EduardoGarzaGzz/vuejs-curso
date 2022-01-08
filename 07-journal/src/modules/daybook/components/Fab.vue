@@ -1,8 +1,8 @@
 <template>
-	<button class="btn btn-primary"><em :class="icon" class="fa fa-2x"></em></button>
+	<button class="btn btn-primary" @click="$emit('on:click')"><em :class="icon" class="fa fa-2x"></em></button>
 </template>
 
-<script lang="ts">
+<script lang="js">
 export default {
 	name : 'Fab',
 	props: {

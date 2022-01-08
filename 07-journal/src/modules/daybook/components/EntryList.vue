@@ -3,13 +3,19 @@
     <div class="px-2 pt-2">
       <input v-model="term" class="form-control" placeholder="Buscar entrada" type="text">
     </div>
+		<div class="my-2 d-flex flex-column">
+			<button class="btn btn-primary mx-3" @click="$router.push( { name: 'entry', params: { id: 'new' } } )">
+				<em class="fa fa-plus-circle"></em>
+				Nueva entrada
+			</button>
+		</div>
     <div class="entry-scrollarea">
       <p v-for="entry in entriesByTerm" :key="entry.id"><Entry :entry="entry" /></p>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineAsyncComponent } from 'vue';
 import { mapGetters }           from 'vuex';
 

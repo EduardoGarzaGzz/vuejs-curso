@@ -1,6 +1,6 @@
-import { RouteComponent } from 'vue-router';
+import { RouteComponent, RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 
-const daybookRouter = {
+const daybookRouter: RouteRecordRaw | any = {
     name     : 'DayBook',
     component: (): Promise<RouteComponent> => import(/* webpackChunkName: "DayBookLayout" */ '../layouts/DayBookLayout.vue'),
     children : [
@@ -12,7 +12,12 @@ const daybookRouter = {
         {
             path     : ':id',
             name     : 'entry',
-            component: (): Promise<RouteComponent> => import(/* webpackChunkName: "EntryView" */ '../views/EntryView.vue')
+            component: (): Promise<RouteComponent> => import(/* webpackChunkName: "EntryView" */ '../views/EntryView.vue'),
+            props    : ( r: RouteLocationNormalized ) => {
+                return {
+                    id: r.params.id
+                };
+            }
         }
     ]
 };
