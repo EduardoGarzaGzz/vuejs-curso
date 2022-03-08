@@ -14,7 +14,8 @@
     "strictNullChecks": false,
     "noImplicitReturns": true,
     "types": [
-      "webpack-env"
+      "webpack-env",
+      "jest"
     ],
     "paths": {
       "@/*": [
