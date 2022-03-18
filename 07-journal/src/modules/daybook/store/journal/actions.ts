@@ -22,8 +22,12 @@ export const loadEntries: Action<IJournalState, IJournalState> = async ( { commi
 };
 
 export const updateEntry: Action<IJournalState, IJournalState> = async ( { commit }, entry ) => {
-    const { id, ...obj } = entry;
-    const { data }       = await journalApi.put( `/entries/${ id }.json`, obj );
+    const { id, date, picture, text } = entry;
+    const { data }                    = await journalApi.put( `/entries/${ id }.json`, {
+        date,
+        picture,
+        text
+    } );
     commit( 'updateEntry', {
         id,
         ...data

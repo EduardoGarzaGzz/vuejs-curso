@@ -7,8 +7,13 @@ export const setEntries: Mutation<IJournalState> = ( state, entries: any ) => {
 };
 
 export const updateEntry: Mutation<IJournalState> = ( state, entryUpdated: any ) => {
-    const idx                       = ( state.entries as any ).map( ( e: any ) => e.id ).indexOf( entryUpdated.id );
-    ( state.entries as any )[ idx ] = { ...entryUpdated };
+    const idx = ( state.entries as any ).map( ( e: any ) => e.id ).indexOf( entryUpdated.id );
+
+    if ( idx !== -1 ) {
+        ( state.entries as any )[ idx ] = entryUpdated;
+    } else {
+        ( state.entries as any ).push( { ...entryUpdated } );
+    }
 };
 
 export const addEntry: Mutation<IJournalState> = ( state, entry ) => {
