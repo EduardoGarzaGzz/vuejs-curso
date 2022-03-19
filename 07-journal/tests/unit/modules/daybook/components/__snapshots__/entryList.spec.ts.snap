@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Component: EntryList.vue debe de llamar el getEntriesByTerm sin termino y mostrar 2 entradas 1`] = `
+<div class="entry-list-container">
+  <div class="px-2 pt-2"><input class="form-control" placeholder="Buscar entrada" type="text"></div>
+  <div class="my-2 d-flex flex-column"><button class="btn btn-primary mx-3"><em class="fa fa-plus-circle"></em> Nueva entrada </button></div>
+  <div class="entry-scrollarea">
+    <p>
+      <entry-stub entry="[object Object]"></entry-stub>
+    </p>
+  </div>
+</div>
+`;

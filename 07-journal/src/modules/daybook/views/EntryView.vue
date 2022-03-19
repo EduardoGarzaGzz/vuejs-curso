@@ -126,11 +126,11 @@ export default {
 			} );
 			
 			if ( isConfirmed ) {
-				new Swal( {
+				Swal.fire( {
 					title            : 'Espere por favor',
 					allowOutsideClick: false
 				} );
-				
+				Swal.showLoading();
 				await this.deleteEntry( this.entry );
 				await this.$router.push( { name: 'no-entry' } );
 				
