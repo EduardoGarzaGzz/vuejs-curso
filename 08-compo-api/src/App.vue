@@ -2,7 +2,8 @@
   <div id="nav">
     <router-link :to="{ name: 'Home'}">Home</router-link> |
     <router-link to="/about">About</router-link> |
-    <router-link :to="{ name: 'Counter'}">Counter</router-link>
+    <router-link :to="{ name: 'Counter'}">Counter</router-link> |
+    <router-link :to="{ name: 'Users'}">Users</router-link>
   </div>
 	<router-view v-slot="{ Component, route }">
 		<keep-alive>
