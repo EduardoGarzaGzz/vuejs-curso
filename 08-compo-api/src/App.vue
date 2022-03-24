@@ -3,9 +3,10 @@
     <router-link :to="{ name: 'Home'}">Home</router-link> |
     <router-link to="/about">About</router-link> |
     <router-link :to="{ name: 'Counter'}">Counter</router-link> |
-    <router-link :to="{ name: 'Users'}">Users</router-link>
+    <router-link :to="{ name: 'Users'}">Users</router-link> |
+    <router-link :to="{ name: 'pokemon-search'}">Buscar</router-link>
   </div>
-	<router-view v-slot="{ Component, route }">
+	<router-view v-slot="{  Component, route  }">
 		<keep-alive>
 			<component :is="Component" :key="route.name" />
 		</keep-alive>
